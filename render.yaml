@@ -2,7 +2,7 @@ services:
   # Express Backend Web Service
   - type: web
     name: shopverse-backend
-    env: node
+    runtime: node
     rootDir: server
     buildCommand: npm install
     startCommand: npm start
@@ -21,8 +21,9 @@ services:
         sync: false
 
   # React / Vite Frontend Static Site
-  - type: static
+  - type: web
     name: shopverse-frontend
+    runtime: static
     rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
@@ -32,7 +33,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: shopverse-backend
-          property: url
+        sync: false
