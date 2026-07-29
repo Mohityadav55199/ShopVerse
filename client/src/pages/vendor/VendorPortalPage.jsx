@@ -187,7 +187,7 @@ const VendorPortalPage = () => {
                           {product.category}
                         </span>
                       </td>
-                      <td className="p-4 font-semibold text-gray-900">${product.price.toFixed(2)}</td>
+                      <td className="p-4 font-semibold text-gray-900">₹{product.price.toFixed(2)}</td>
                       <td className="p-4">
                         <span
                           className={`px-2.5 py-1 rounded-full text-xs font-medium ${
@@ -251,7 +251,7 @@ const VendorPortalPage = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">Price ($) *</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">Price (₹) *</label>
                   <input
                     type="number"
                     step="0.01"
