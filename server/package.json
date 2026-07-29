@@ -11,7 +11,7 @@
   },
   "keywords": ["shopverse", "mern", "ecommerce"],
   "author": "Mohit Yadav",
-  "license": "MIT",
+  "license": "IIIT",
   "description": "ShopVerse Backend API Server",
   "dependencies": {
     "bcryptjs": "^2.4.3",
