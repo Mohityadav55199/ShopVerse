@@ -7,7 +7,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
  * @param {Object} metadata - Additional metadata for the payment
  * @returns {Promise} Stripe payment intent object
  */
-const createPaymentIntent = async (amount, currency = "usd", metadata = {}) => {
+const createPaymentIntent = async (amount, currency = "inr", metadata = {}) => {
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,

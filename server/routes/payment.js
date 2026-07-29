@@ -20,7 +20,7 @@ router.post("/create-payment-intent", auth, async (req, res) => {
     const amountInCents = Math.round(amount * 100);
 
     // Create payment intent
-    const paymentIntent = await createPaymentIntent(amountInCents, "usd", {
+    const paymentIntent = await createPaymentIntent(amountInCents, "inr", {
       userId: req.user._id.toString(),
     });
 

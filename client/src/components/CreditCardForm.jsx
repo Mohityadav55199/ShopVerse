@@ -120,7 +120,7 @@ const CreditCardForm = ({
         disabled={!stripe || processing || disabled || !cardComplete}
         className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        {processing ? "Processing..." : `Pay $${amount.toFixed(2)}`}
+        {processing ? "Processing..." : `Pay ₹${amount.toFixed(2)}`}
       </button>
     </form>
   );

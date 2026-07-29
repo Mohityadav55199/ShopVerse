@@ -187,7 +187,7 @@ const ProductCarousel = ({ products, autoPlay = true, interval = 4000 }) => {
 
                   <div className="mb-3 sm:mb-6">
                     <span className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600">
-                      ${product.price.toFixed(2)}
+                      ₹{product.price.toFixed(2)}
                     </span>
                     {product.stock <= 5 && product.stock > 0 && (
                       <span className="ml-2 sm:ml-3 text-xs sm:text-sm bg-red-100 text-red-700 px-2 py-1 rounded-full">
