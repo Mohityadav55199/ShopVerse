@@ -1,8 +1,9 @@
 services:
-  # Express Backend Web Service
+  # Express Backend Web Service (Free Tier)
   - type: web
     name: shopverse-backend
     runtime: node
+    plan: free
     rootDir: server
     buildCommand: npm install
     startCommand: npm start
@@ -20,10 +21,11 @@ services:
       - key: CLOUDINARY_API_SECRET
         sync: false
 
-  # React / Vite Frontend Static Site
+  # React / Vite Frontend Static Site (Free Tier)
   - type: web
     name: shopverse-frontend
     runtime: static
+    plan: free
     rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
