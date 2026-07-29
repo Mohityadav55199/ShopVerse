@@ -162,7 +162,7 @@ const Navbar = () => {
                     )}
                   </Link>
                   <span className="px-3 py-2 text-gray-300">
-                    Hello, {user.username}
+                    Hello, {user.username} ({user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : "Customer"})
                   </span>
                   <button
                     onClick={handleLogout}
@@ -317,7 +317,7 @@ const Navbar = () => {
             {user ? (
               <div className="px-2 space-y-1">
                 <span className="block px-3 py-2 text-gray-300">
-                  Hello, {user.username}
+                  Hello, {user.username} ({user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : "Customer"})
                 </span>
                 <button
                   onClick={() => {
