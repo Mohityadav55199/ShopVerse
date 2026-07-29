@@ -43,9 +43,22 @@ app.use("/upload", uploadRoutes);
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
+  .then(async () => {
     console.log("MongoDB connected");
     console.log(`Database URI: ${process.env.MONGO_URI}`);
+
+    // Auto-seed sample products if database is empty
+    try {
+      const Product = require("./models/Product");
+      const count = await Product.countDocuments();
+      if (count === 0) {
+        console.log("No products found in DB. Auto-seeding initial products...");
+        const seedDatabase = require("./seed");
+        await seedDatabase();
+      }
+    } catch (seedErr) {
+      console.error("Auto-seed check error:", seedErr);
+    }
   })
   .catch((err) => {
     console.error("MongoDB connection error:", err);

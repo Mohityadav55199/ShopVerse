@@ -847,8 +847,8 @@ const seedDatabase = async (clearDB = false) => {
     console.error("Error seeding database:", err);
     return false;
   } finally {
-    // Disconnect from database
-    if (mongoose.connection.readyState !== 0) {
+    // Disconnect from database if run directly from CLI
+    if (require.main === module && mongoose.connection.readyState !== 0) {
       await mongoose.disconnect();
       console.log("Disconnected from MongoDB");
     }
