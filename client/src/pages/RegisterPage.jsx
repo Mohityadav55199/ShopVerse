@@ -60,15 +60,15 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-4 py-8 bg-gray-950 text-white">
-      {/* Container Box with Glassmorphism */}
-      <div className="w-full max-w-lg bg-gray-900/90 border border-gray-800 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8">
+    <div className="min-h-[80vh] flex items-center justify-center px-4 py-8 bg-gray-100 text-gray-900">
+      {/* Light Card Matching Application Design System */}
+      <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-md p-6 md:p-8">
         
         {/* Header Icon & Title */}
         <div className="flex flex-col items-center text-center mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 mb-3">
+          <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
             <svg
-              className="w-6 h-6 text-white"
+              className="w-6 h-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -81,19 +81,19 @@ const RegisterPage = () => {
               />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white">
+          <h2 className="text-2xl font-bold text-gray-900">
             Create Your Account
           </h2>
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-sm text-gray-500 mt-1">
             Join ShopVerse as a Customer or Vendor
           </p>
         </div>
 
         {/* Error Notification */}
         {formError && (
-          <div className="mb-4 p-3 bg-red-950/80 border border-red-800/80 text-red-300 text-sm rounded-lg flex items-center gap-2">
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg flex items-center gap-2">
             <svg
-              className="w-4 h-4 text-red-400 flex-shrink-0"
+              className="w-4 h-4 text-red-500 flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -114,7 +114,7 @@ const RegisterPage = () => {
           
           {/* Role Selection */}
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
               I want to join as:
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -123,23 +123,23 @@ const RegisterPage = () => {
                 onClick={() =>
                   setFormData((prev) => ({ ...prev, role: "customer" }))
                 }
-                className={`py-2.5 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
+                className={`py-2 px-3 rounded-lg border text-xs font-medium flex items-center justify-center gap-1.5 transition-all ${
                   formData.role === "customer"
-                    ? "bg-blue-950/80 border-blue-500 text-blue-300 shadow-md shadow-blue-500/10"
-                    : "bg-gray-950/60 border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
+                    ? "bg-blue-600 border-blue-600 text-white shadow-sm font-semibold"
+                    : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
                 }`}
               >
-                <span>🛒 Customer (Buy Only)</span>
+                <span>🛒 Customer (Buy)</span>
               </button>
               <button
                 type="button"
                 onClick={() =>
                   setFormData((prev) => ({ ...prev, role: "vendor" }))
                 }
-                className={`py-2.5 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
+                className={`py-2 px-3 rounded-lg border text-xs font-medium flex items-center justify-center gap-1.5 transition-all ${
                   formData.role === "vendor"
-                    ? "bg-emerald-950/80 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-500/10"
-                    : "bg-gray-950/60 border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
+                    ? "bg-emerald-600 border-emerald-600 text-white shadow-sm font-semibold"
+                    : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
                 }`}
               >
                 <span>🏬 Vendor (Buy & Sell)</span>
@@ -149,167 +149,82 @@ const RegisterPage = () => {
 
           {/* Username Field */}
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Username
             </label>
-            <div className="relative">
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                placeholder="e.g. john_doe"
-                className="w-full bg-gray-950/80 border border-gray-800 rounded-lg px-3.5 py-2.5 pl-10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                required
-              />
-              <svg
-                className="w-4 h-4 text-gray-500 absolute left-3.5 top-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-            </div>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="e.g. john_doe"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
           </div>
 
           {/* Email Address */}
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Email Address
             </label>
-            <div className="relative">
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="name@example.com"
-                className="w-full bg-gray-950/80 border border-gray-800 rounded-lg px-3.5 py-2.5 pl-10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                required
-              />
-              <svg
-                className="w-4 h-4 text-gray-500 absolute left-3.5 top-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="name@example.com"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
           </div>
 
           {/* Password */}
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Password
             </label>
-            <div className="relative">
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="••••••••"
-                className="w-full bg-gray-950/80 border border-gray-800 rounded-lg px-3.5 py-2.5 pl-10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                required
-              />
-              <svg
-                className="w-4 h-4 text-gray-500 absolute left-3.5 top-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
-            </div>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="••••••••"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
           </div>
 
           {/* Confirm Password */}
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Confirm Password
             </label>
-            <div className="relative">
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="••••••••"
-                className="w-full bg-gray-950/80 border border-gray-800 rounded-lg px-3.5 py-2.5 pl-10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                required
-              />
-              <svg
-                className="w-4 h-4 text-gray-500 absolute left-3.5 top-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="••••••••"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium py-2.5 px-4 rounded-xl shadow-lg shadow-blue-600/20 transition-all duration-200 flex items-center justify-center disabled:opacity-50"
+            className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg shadow-sm transition-colors flex items-center justify-center disabled:opacity-50"
           >
-            {loading ? (
-              <span className="flex items-center gap-2 text-sm">
-                <svg
-                  className="animate-spin h-4 w-4 text-white"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    fill="none"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
-                Creating Account...
-              </span>
-            ) : (
-              "Create Account"
-            )}
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 
         {/* Redirect to Login */}
-        <div className="mt-6 text-center text-xs text-gray-400">
+        <div className="mt-6 text-center text-xs text-gray-600">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-400 hover:text-blue-300 font-medium">
+          <Link to="/login" className="text-blue-600 hover:underline font-semibold">
             Sign In here
           </Link>
         </div>
