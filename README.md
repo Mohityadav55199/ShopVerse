@@ -93,4 +93,4 @@ Access locally:
 
 ## License
 
-[MIT License](LICENSE) © 2026 Mohit Yadav
+[IIIT License](LICENSE) © 2026 Mohit Yadav
