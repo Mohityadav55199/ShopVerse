@@ -16,7 +16,9 @@ export const AppProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   // Initialize axios with auth token
-  const API = axios.create({ baseURL: "http://localhost:3000" });
+  const API = axios.create({
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
+  });
 
   // Setup axios interceptor for token
   API.interceptors.request.use((config) => {
