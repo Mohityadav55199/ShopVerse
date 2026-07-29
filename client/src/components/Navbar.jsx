@@ -56,6 +56,14 @@ const Navbar = () => {
                 >
                   Products
                 </Link>
+                {user && user.role === "vendor" && (
+                  <Link
+                    to="/vendor"
+                    className="px-3 py-2 rounded-md bg-emerald-700/80 hover:bg-emerald-600 font-medium text-emerald-100 flex items-center gap-1.5"
+                  >
+                    <span>🏬</span> Vendor Portal
+                  </Link>
+                )}
                 {user && (
                   <Link
                     to="/orders"

@@ -28,6 +28,7 @@ import AdminProductsPage from "./pages/admin/ProductsPage";
 import ProductEditPage from "./pages/admin/ProductEditPage";
 import AdminOrdersPage from "./pages/admin/OrdersPage";
 import CarouselSettingsPage from "./pages/admin/CarouselSettingsPage";
+import VendorPortalPage from "./pages/vendor/VendorPortalPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 // Layout components
@@ -122,6 +123,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <OrderDetailPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/vendor"
+                  element={
+                    <ProtectedRoute requiredRole="vendor">
+                      <VendorPortalPage />
                     </ProtectedRoute>
                   }
                 />

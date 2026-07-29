@@ -21,10 +21,18 @@ const users = [
     createdAt: new Date(),
   },
   {
-    username: "user",
-    email: "user@example.com",
+    username: "vendor",
+    email: "vendor@example.com",
     password: "password123",
-    role: "user",
+    role: "vendor",
+    active: true,
+    createdAt: new Date(),
+  },
+  {
+    username: "customer",
+    email: "customer@example.com",
+    password: "password123",
+    role: "customer",
     active: true,
     createdAt: new Date(),
     shippingAddress: {
@@ -33,6 +41,14 @@ const users = [
       postalCode: "12345",
       country: "Romania",
     },
+  },
+  {
+    username: "user",
+    email: "user@example.com",
+    password: "password123",
+    role: "customer",
+    active: true,
+    createdAt: new Date(),
   },
 ];
 

@@ -107,13 +107,14 @@ export const AppProvider = ({ children }) => {
   };
 
   // Register user
-  const register = async (username, email, password) => {
+  const register = async (username, email, password, role = "customer") => {
     try {
       setLoading(true);
       const res = await API.post("/auth/register", {
         username,
         email,
         password,
+        role,
       });
       localStorage.setItem("token", res.data.token);
       setUser(res.data.user);

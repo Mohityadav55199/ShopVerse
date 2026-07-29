@@ -36,7 +36,12 @@ exports.authorize = (...roles) => {
       return res.status(401).json({ message: "Authentication required" });
     }
 
-    if (roles.includes(req.user.role)) {
+    const userRole = req.user.role === "user" ? "customer" : req.user.role;
+    const allowedRoles = roles.flatMap((r) =>
+      r === "customer" || r === "user" ? ["customer", "user"] : [r],
+    );
+
+    if (allowedRoles.includes(userRole) || req.user.role === "admin") {
       return next();
     }
 

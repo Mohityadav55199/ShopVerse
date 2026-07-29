@@ -67,7 +67,8 @@ router.post("/login", async (req, res) => {
 // Register user
 router.post("/register", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
+    const requestedRole = (role === "vendor" || role === "customer") ? role : "customer";
 
     // Check if user already exists
     let user = await User.findOne({ $or: [{ email }, { username }] });
@@ -86,7 +87,7 @@ router.post("/register", async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      role: "user",
+      role: requestedRole,
     });
 
     await user.save();

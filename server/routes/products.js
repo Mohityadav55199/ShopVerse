@@ -115,8 +115,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Create product (admin only)
-router.post("/", auth, authorize("admin"), async (req, res) => {
+// Create product (admin or vendor)
+router.post("/", auth, authorize("admin", "vendor"), async (req, res) => {
   try {
     // Validate images array (max 5 additional images)
     if (req.body.images && req.body.images.length > 5) {
@@ -125,7 +125,12 @@ router.post("/", auth, authorize("admin"), async (req, res) => {
         .json({ message: "Maximum of 5 additional images allowed" });
     }
 
-    const product = new Product(req.body);
+    const productData = {
+      ...req.body,
+      vendor: req.user.role === "vendor" ? req.user._id : (req.body.vendor || req.user._id),
+    };
+
+    const product = new Product(productData);
     const newProduct = await product.save();
     res.status(201).json(newProduct);
   } catch (err) {
@@ -133,8 +138,8 @@ router.post("/", auth, authorize("admin"), async (req, res) => {
   }
 });
 
-// Update product (admin only)
-router.put("/:id", auth, authorize("admin"), async (req, res) => {
+// Update product (admin or vendor)
+router.put("/:id", auth, authorize("admin", "vendor"), async (req, res) => {
   try {
     // Validate images array (max 5 additional images)
     if (req.body.images && req.body.images.length > 5) {
@@ -148,10 +153,17 @@ router.put("/:id", auth, authorize("admin"), async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
+    // Check ownership if user is vendor
+    if (
+      req.user.role === "vendor" &&
+      product.vendor &&
+      product.vendor.toString() !== req.user._id.toString()
+    ) {
+      return res.status(403).json({ message: "Access denied: Not your product" });
+    }
+
     // Handle main image changes
     if (req.body.imageUrl !== product.imageUrl && product.imagePublicId) {
-      // Only delete if this is a Cloudinary image (has a public ID)
-      // and it's actually being changed
       try {
         await cloudinary.uploader.destroy(product.imagePublicId);
       } catch (cloudinaryError) {
@@ -165,7 +177,6 @@ router.put("/:id", auth, authorize("admin"), async (req, res) => {
         (publicId) => !req.body.imagesPublicIds.includes(publicId),
       );
 
-      // Delete removed images from Cloudinary
       if (removedPublicIds.length > 0) {
         try {
           await Promise.all(
@@ -194,12 +205,21 @@ router.put("/:id", auth, authorize("admin"), async (req, res) => {
   }
 });
 
-// Delete product (admin only) with cascading delete
-router.delete("/:id", auth, authorize("admin"), async (req, res) => {
+// Delete product (admin or vendor) with cascading delete
+router.delete("/:id", auth, authorize("admin", "vendor"), async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Check ownership if user is vendor
+    if (
+      req.user.role === "vendor" &&
+      product.vendor &&
+      product.vendor.toString() !== req.user._id.toString()
+    ) {
+      return res.status(403).json({ message: "Access denied: Not your product" });
     }
 
     const productId = product._id;
@@ -277,6 +297,17 @@ router.get("/search/:query", async (req, res) => {
         { category: { $regex: query, $options: "i" } },
       ],
     });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get vendor's own products
+router.get("/vendor/my-products", auth, authorize("admin", "vendor"), async (req, res) => {
+  try {
+    const filter = req.user.role === "admin" ? {} : { vendor: req.user._id };
+    const products = await Product.find(filter).sort({ createdAt: -1 });
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
