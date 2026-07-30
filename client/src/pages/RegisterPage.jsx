@@ -15,6 +15,11 @@ const RegisterPage = () => {
   const { register, loading } = useAppContext();
   const navigate = useNavigate();
 
+  const handleFocus = (e) => {
+    const { name } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: "" }));
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (formError) setFormError("");
@@ -66,21 +71,11 @@ const RegisterPage = () => {
         
         {/* Header Icon & Title */}
         <div className="flex flex-col items-center text-center mb-6">
-          <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-              />
-            </svg>
-          </div>
+          <img
+            src="/favicon.svg"
+            alt="ShopVerse Favicon Logo"
+            className="w-14 h-14 rounded-2xl mb-3 shadow-md hover:scale-105 transition-transform"
+          />
           <h2 className="text-2xl font-bold text-gray-900">
             Create Your Account
           </h2>
@@ -157,6 +152,7 @@ const RegisterPage = () => {
               name="username"
               value={formData.username}
               onChange={handleChange}
+              onFocus={handleFocus}
               placeholder="e.g. john_doe"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:placeholder-transparent transition-all"
               required
@@ -173,6 +169,7 @@ const RegisterPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              onFocus={handleFocus}
               placeholder="name@example.com"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:placeholder-transparent transition-all"
               required
@@ -189,6 +186,7 @@ const RegisterPage = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              onFocus={handleFocus}
               placeholder="••••••••"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:placeholder-transparent transition-all"
               required
@@ -205,6 +203,7 @@ const RegisterPage = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
+              onFocus={handleFocus}
               placeholder="••••••••"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:placeholder-transparent transition-all"
               required

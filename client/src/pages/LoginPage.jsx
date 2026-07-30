@@ -40,6 +40,11 @@ const LoginPage = () => {
     if (formError) setFormError("");
   };
 
+  const handleFocus = (e) => {
+    const { name } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: "" }));
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (formError) setFormError("");
@@ -69,21 +74,11 @@ const LoginPage = () => {
         
         {/* Header Icon & Title */}
         <div className="flex flex-col items-center text-center mb-6">
-          <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-              />
-            </svg>
-          </div>
+          <img
+            src="/favicon.svg"
+            alt="ShopVerse Favicon Logo"
+            className="w-14 h-14 rounded-2xl mb-3 shadow-md hover:scale-105 transition-transform"
+          />
           <h2 className="text-2xl font-bold text-gray-900">
             Welcome to ShopVerse
           </h2>
@@ -210,7 +205,7 @@ const LoginPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              onFocus={(e) => { if (e.target.value) e.target.select(); }}
+              onFocus={handleFocus}
               placeholder="name@example.com"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:placeholder-transparent transition-all"
               required
@@ -227,7 +222,7 @@ const LoginPage = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              onFocus={(e) => { if (e.target.value) e.target.select(); }}
+              onFocus={handleFocus}
               placeholder="••••••••"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:placeholder-transparent transition-all"
               required
