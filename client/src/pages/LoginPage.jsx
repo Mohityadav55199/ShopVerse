@@ -3,11 +3,11 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 
 const LoginPage = () => {
-  const [selectedRole, setSelectedRole] = useState("customer"); // "customer" | "vendor" | "admin"
+  const [selectedRole, setSelectedRole] = useState(""); // "" | "customer" | "vendor" | "admin"
 
   const [formData, setFormData] = useState({
-    email: "customer@example.com",
-    password: "password123",
+    email: "",
+    password: "",
   });
 
   const [formError, setFormError] = useState("");
@@ -210,6 +210,7 @@ const LoginPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              onFocus={(e) => { if (e.target.value) e.target.select(); }}
               placeholder="name@example.com"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:placeholder-transparent transition-all"
               required
@@ -226,6 +227,7 @@ const LoginPage = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              onFocus={(e) => { if (e.target.value) e.target.select(); }}
               placeholder="••••••••"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:placeholder-transparent transition-all"
               required
