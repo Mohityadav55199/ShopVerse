@@ -21,6 +21,34 @@ const CheckoutPage = () => {
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [addressLoading, setAddressLoading] = useState(true);
 
+  // Coupon / Promo Code State
+  const [couponCode, setCouponCode] = useState("");
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponError, setCouponError] = useState("");
+
+  const handleApplyCoupon = (e) => {
+    e.preventDefault();
+    setCouponError("");
+    const code = couponCode.trim().toUpperCase();
+
+    if (code === "WELCOME10") {
+      const discount = Math.round(cart.total * 0.1);
+      setDiscountAmount(discount);
+      setAppliedCoupon("WELCOME10 (10% OFF)");
+    } else if (code === "SHOPVERSE20") {
+      const discount = Math.round(cart.total * 0.2);
+      setDiscountAmount(discount);
+      setAppliedCoupon("SHOPVERSE20 (20% OFF)");
+    } else if (code === "BHARAT100") {
+      const discount = Math.min(100, cart.total);
+      setDiscountAmount(discount);
+      setAppliedCoupon("BHARAT100 (₹100 OFF)");
+    } else {
+      setCouponError("Invalid coupon code. Try WELCOME10 or SHOPVERSE20.");
+    }
+  };
+
   // Fetch user's saved shipping address on component mount
   useEffect(() => {
     const fetchSavedAddress = async () => {
@@ -531,18 +559,70 @@ const CheckoutPage = () => {
               </ul>
             </div>
 
+            {/* Promo Code Input */}
+            <div className="border-t border-gray-200 pt-4 mt-4">
+              <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                🏷️ Promo / Coupon Code
+              </label>
+              {appliedCoupon ? (
+                <div className="flex items-center justify-between p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-800 text-xs font-semibold">
+                  <span>Applied: {appliedCoupon}</span>
+                  <button
+                    onClick={() => {
+                      setAppliedCoupon(null);
+                      setDiscountAmount(0);
+                      setCouponCode("");
+                    }}
+                    className="text-emerald-600 hover:text-emerald-900 underline ml-2"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleApplyCoupon} className="flex gap-2">
+                  <input
+                    type="text"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                    placeholder="e.g. WELCOME10"
+                    className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                  />
+                  <button
+                    type="submit"
+                    className="px-3 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-semibold rounded-lg shadow-sm transition-colors whitespace-nowrap"
+                  >
+                    Apply
+                  </button>
+                </form>
+              )}
+              {couponError && (
+                <div className="text-[11px] text-red-600 font-medium mt-1.5">
+                  {couponError}
+                </div>
+              )}
+              <div className="text-[10px] text-gray-400 mt-1.5">
+                Available: <span className="font-mono text-gray-600">WELCOME10</span> (10% OFF), <span className="font-mono text-gray-600">SHOPVERSE20</span> (20% OFF)
+              </div>
+            </div>
+
             <div className="border-t border-gray-200 py-4 mt-4">
               <div className="flex justify-between text-sm text-gray-600">
                 <p>Subtotal</p>
                 <p>₹{cart.total.toLocaleString("en-IN")}</p>
               </div>
+              {discountAmount > 0 && (
+                <div className="flex justify-between text-sm text-emerald-600 font-medium mt-2">
+                  <p>Coupon Discount</p>
+                  <p>-₹{discountAmount.toLocaleString("en-IN")}</p>
+                </div>
+              )}
               <div className="flex justify-between text-sm text-gray-600 mt-2">
                 <p>Shipping</p>
                 <p>Free</p>
               </div>
-              <div className="flex justify-between text-base font-medium text-gray-900 mt-4">
+              <div className="flex justify-between text-base font-bold text-gray-900 mt-4">
                 <p>Total</p>
-                <p>₹{cart.total.toLocaleString("en-IN")}</p>
+                <p>₹{Math.max(0, cart.total - discountAmount).toLocaleString("en-IN")}</p>
               </div>
             </div>
           </div>

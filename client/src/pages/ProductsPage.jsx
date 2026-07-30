@@ -356,75 +356,87 @@ const ProductsPage = () => {
               </div>
             </div>
 
-            {/* Price Range Filter */}
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Price Range & Slider Filter */}
+            <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-2">
-                  Price Range
+                <h3 className="text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                  💰 Max Price Filter: ₹{priceRange.max ? parseInt(priceRange.max).toLocaleString("en-IN") : "1,50,000"}
                 </h3>
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="number"
-                    placeholder="Min"
-                    value={priceRange.min}
-                    onChange={(e) =>
-                      setPriceRange({ ...priceRange, min: e.target.value })
-                    }
-                    className="w-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <span>to</span>
-                  <input
-                    type="number"
-                    placeholder="Max"
-                    value={priceRange.max}
-                    onChange={(e) =>
-                      setPriceRange({ ...priceRange, max: e.target.value })
-                    }
-                    className="w-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="150000"
+                  step="500"
+                  value={priceRange.max || 150000}
+                  onChange={(e) =>
+                    setPriceRange({ ...priceRange, max: e.target.value })
+                  }
+                  className="w-full sm:w-64 accent-blue-600 cursor-pointer"
+                />
               </div>
 
-              <div className="flex items-end justify-between">
-                <div className="text-sm text-gray-600">
-                  <p>Showing {sortedProducts.length} products</p>
-                  {(selectedCategory ||
-                    searchQuery ||
-                    priceRange.min ||
-                    priceRange.max ||
-                    sortBy) && (
-                    <p>
-                      {selectedCategory && (
-                        <span className="mr-2">
-                          Category: {selectedCategory}
-                        </span>
-                      )}
-                      {searchQuery && (
-                        <span className="mr-2">Search: "{searchQuery}"</span>
-                      )}
-                      {(priceRange.min || priceRange.max) && (
-                        <span className="mr-2">
-                          Price: {priceRange.min || "0"} -{" "}
-                          {priceRange.max || "∞"}
-                        </span>
-                      )}
-                    </p>
-                  )}
-                </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="number"
+                  placeholder="Min ₹"
+                  value={priceRange.min}
+                  onChange={(e) =>
+                    setPriceRange({ ...priceRange, min: e.target.value })
+                  }
+                  className="w-24 px-3 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <span className="text-xs text-gray-500">to</span>
+                <input
+                  type="number"
+                  placeholder="Max ₹"
+                  value={priceRange.max}
+                  onChange={(e) =>
+                    setPriceRange({ ...priceRange, max: e.target.value })
+                  }
+                  className="w-24 px-3 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
 
+            <div className="flex items-end justify-between mt-4">
+              <div className="text-sm text-gray-600">
+                <p>Showing {sortedProducts.length} products</p>
                 {(selectedCategory ||
                   searchQuery ||
                   priceRange.min ||
                   priceRange.max ||
                   sortBy) && (
-                  <button
-                    onClick={handleClearFilters}
-                    className="px-3 py-2 text-sm text-blue-600 hover:text-blue-800"
-                  >
-                    Clear Filters
-                  </button>
+                  <p>
+                    {selectedCategory && (
+                      <span className="mr-2">
+                        Category: {selectedCategory}
+                      </span>
+                    )}
+                    {searchQuery && (
+                      <span className="mr-2">Search: "{searchQuery}"</span>
+                    )}
+                    {(priceRange.min || priceRange.max) && (
+                      <span className="mr-2">
+                        Price: {priceRange.min || "0"} -{" "}
+                        {priceRange.max || "∞"}
+                      </span>
+                    )}
+                  </p>
                 )}
               </div>
+
+              {(selectedCategory ||
+                searchQuery ||
+                priceRange.min ||
+                priceRange.max ||
+                sortBy) && (
+                <button
+                  onClick={handleClearFilters}
+                  className="px-3 py-2 text-sm text-blue-600 hover:text-blue-800"
+                >
+                  Clear Filters
+                </button>
+              )}
             </div>
           </div>
         </div>

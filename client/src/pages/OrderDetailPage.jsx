@@ -94,6 +94,18 @@ const OrderDetailPage = () => {
     fetchOrder();
   }, [API, id, navigate, setError]);
 
+  const handleCancelOrder = async () => {
+    if (!window.confirm("Are you sure you want to cancel this order? Item stock will be returned.")) return;
+
+    try {
+      const res = await API.put(`/orders/${id}/cancel`);
+      setOrder(res.data.order || { ...order, status: "cancelled" });
+      alert("Order cancelled successfully!");
+    } catch (err) {
+      alert("Failed to cancel order: " + (err.response?.data?.message || err.message));
+    }
+  };
+
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -140,6 +152,14 @@ const OrderDetailPage = () => {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-gray-800">Order Details</h1>
         <div className="flex items-center gap-3">
+          {["pending", "processing"].includes(order.status) && (
+            <button
+              onClick={handleCancelOrder}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors print:hidden"
+            >
+              <span>🚫</span> Cancel Order
+            </button>
+          )}
           <button
             onClick={() => window.print()}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-semibold rounded-lg shadow-sm transition-colors print:hidden"

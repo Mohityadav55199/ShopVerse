@@ -185,4 +185,49 @@ router.put("/:id/status", auth, authorize("admin"), async (req, res) => {
   }
 });
 
+// Cancel order (by customer if status is pending or processing)
+router.put("/:id/cancel", auth, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (
+      order.user.toString() !== req.user._id.toString() &&
+      req.user.role !== "admin"
+    ) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
+    if (["shipped", "delivered"].includes(order.status)) {
+      return res
+        .status(400)
+        .json({ message: "Cannot cancel an order that has already been shipped or delivered" });
+    }
+
+    order.status = "cancelled";
+    const updatedOrder = await order.save();
+
+    // Restock products back to inventory
+    for (const item of order.items) {
+      if (item.product) {
+        await Product.findByIdAndUpdate(item.product, {
+          $inc: { stock: item.quantity },
+        });
+      }
+    }
+
+    await updatedOrder.populate({
+      path: "items.product",
+      select: "name imageUrl",
+    });
+
+    res.json({ message: "Order cancelled successfully", order: updatedOrder });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

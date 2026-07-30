@@ -15,6 +15,25 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Theme state persisted in localStorage
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+  };
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   // Wishlist state persisted in localStorage
   const [wishlist, setWishlist] = useState(() => {
     try {
@@ -307,6 +326,8 @@ export const AppProvider = ({ children }) => {
     wishlist,
     toggleWishlist,
     isInWishlist,
+    theme,
+    toggleTheme,
     loading,
     error,
     setError,
