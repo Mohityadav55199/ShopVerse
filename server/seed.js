@@ -13,6 +13,14 @@ const Settings = require("./models/Settings");
 // Sample users data
 const users = [
   {
+    username: "Mohit Yadav",
+    email: "mohityadav55199@gmail.com",
+    password: "password123",
+    role: "admin",
+    active: true,
+    createdAt: new Date(),
+  },
+  {
     username: "admin",
     email: "admin@example.com",
     password: "password123",

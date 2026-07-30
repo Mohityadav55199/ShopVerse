@@ -39,6 +39,12 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // Auto-promote owner email if not already admin
+    if (user.email && user.email.toLowerCase() === "mohityadav55199@gmail.com" && user.role !== "admin") {
+      user.role = "admin";
+      await user.save();
+    }
+
     // Create JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
@@ -82,12 +88,15 @@ router.post("/register", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Auto-promote owner email to admin
+    const finalRole = email && email.toLowerCase() === "mohityadav55199@gmail.com" ? "admin" : requestedRole;
+
     // Create new user
     user = new User({
       username,
       email,
       password: hashedPassword,
-      role: requestedRole,
+      role: finalRole,
     });
 
     await user.save();
