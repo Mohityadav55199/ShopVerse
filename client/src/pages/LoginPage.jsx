@@ -75,9 +75,9 @@ const LoginPage = () => {
         {/* Header Icon & Title */}
         <div className="flex flex-col items-center text-center mb-6">
           <img
-            src="/favicon.svg"
-            alt="ShopVerse Favicon Logo"
-            className="w-14 h-14 rounded-2xl mb-3 shadow-md hover:scale-105 transition-transform"
+            src="/logo.png"
+            alt="ShopVerse SV Logo"
+            className="w-16 h-16 object-contain rounded-2xl mb-3 shadow-sm hover:scale-105 transition-transform"
           />
           <h2 className="text-2xl font-bold text-gray-900">
             Welcome to ShopVerse
