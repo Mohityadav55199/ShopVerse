@@ -39,8 +39,8 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Auto-promote owner email if not already admin
-    if (user.email && user.email.toLowerCase() === "mohityadav55199@gmail.com" && user.role !== "admin") {
+    // Auto-promote admin emails if not already admin
+    if (user.email && (user.email.toLowerCase() === "mohityadav55199@gmail.com" || user.email.toLowerCase() === "admin@example.com") && user.role !== "admin") {
       user.role = "admin";
       await user.save();
     }
@@ -134,12 +134,17 @@ router.get("/me", auth, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    let role = user.role;
+    if (user.email && (user.email.toLowerCase() === "mohityadav55199@gmail.com" || user.email.toLowerCase() === "admin@example.com")) {
+      role = "admin";
+    }
+
     // Explicitly structure the response to ensure all fields are included
     res.json({
       _id: user._id,
       username: user.username,
       email: user.email,
-      role: user.role,
+      role: role,
       active: user.active,
       createdAt: user.createdAt,
     });
