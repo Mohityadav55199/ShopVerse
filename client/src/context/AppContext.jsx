@@ -15,6 +15,34 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Wishlist state persisted in localStorage
+  const [wishlist, setWishlist] = useState(() => {
+    try {
+      const saved = localStorage.getItem("wishlist");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const toggleWishlist = (product) => {
+    setWishlist((prev) => {
+      const exists = prev.some((item) => item._id === product._id);
+      let updated;
+      if (exists) {
+        updated = prev.filter((item) => item._id !== product._id);
+      } else {
+        updated = [...prev, product];
+      }
+      localStorage.setItem("wishlist", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const isInWishlist = (productId) => {
+    return wishlist.some((item) => item._id === productId);
+  };
+
   // Initialize axios with auth token
   const API = axios.create({
     baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
@@ -276,6 +304,9 @@ export const AppProvider = ({ children }) => {
   const value = {
     user,
     cart,
+    wishlist,
+    toggleWishlist,
+    isInWishlist,
     loading,
     error,
     setError,

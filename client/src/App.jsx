@@ -29,6 +29,7 @@ import ProductEditPage from "./pages/admin/ProductEditPage";
 import AdminOrdersPage from "./pages/admin/OrdersPage";
 import CarouselSettingsPage from "./pages/admin/CarouselSettingsPage";
 import VendorPortalPage from "./pages/vendor/VendorPortalPage";
+import WishlistPage from "./pages/WishlistPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 // Layout components
@@ -76,6 +77,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/products/:id" element={<ProductDetailPage />} />
+                <Route path="/wishlist" element={<WishlistPage />} />
 
                 {/* Protected routes - User */}
                 <Route

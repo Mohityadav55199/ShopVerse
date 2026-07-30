@@ -34,7 +34,7 @@ const StarRating = ({ rating, setRating, readOnly = false }) => {
 };
 
 const ReviewForm = ({ productId, onReviewAdded }) => {
-  const { API, setError } = useAppContext();
+  const { API, user, setError } = useAppContext();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -144,12 +144,11 @@ const ReviewForm = ({ productId, onReviewAdded }) => {
     );
   }
 
-  if (!hasPurchased) {
+  if (!user) {
     return (
       <div className="mt-6 bg-gray-50 p-4 rounded-md">
         <p className="text-gray-700">
-          You can only leave a review after purchasing and receiving this
-          product.
+          Please sign in to write a product review.
         </p>
       </div>
     );

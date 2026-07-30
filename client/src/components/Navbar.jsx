@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
-  const { user, cart, logout } = useAppContext();
+  const { user, cart, wishlist = [], logout } = useAppContext();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAdminDropdownOpen, setIsAdminDropdownOpen] = useState(false);
   const navigate = useNavigate();
@@ -150,6 +150,17 @@ const Navbar = () => {
             <div className="flex items-center">
               {user ? (
                 <>
+                  <Link
+                    to="/wishlist"
+                    className="relative px-3 py-2 rounded-md hover:bg-gray-700 mr-2 flex items-center gap-1 text-sm font-medium"
+                  >
+                    <span>❤️</span> Wishlist
+                    {wishlist.length > 0 && (
+                      <span className="ml-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 font-bold">
+                        {wishlist.length}
+                      </span>
+                    )}
+                  </Link>
                   <Link
                     to="/cart"
                     className="relative px-3 py-2 rounded-md hover:bg-gray-700 mr-2"

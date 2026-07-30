@@ -154,24 +154,34 @@ const VendorPortalPage = () => {
           </button>
         </div>
 
-        {/* Stats Summary */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        {/* Stats Summary & Sales Analytics */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
             <div className="text-gray-500 text-xs font-medium uppercase tracking-wider">Total Products Listed</div>
             <div className="text-3xl font-bold text-gray-900 mt-2">{products.length}</div>
+            <div className="text-xs text-gray-400 mt-1">Active Store Catalog</div>
           </div>
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
             <div className="text-gray-500 text-xs font-medium uppercase tracking-wider">Active Inventory Count</div>
             <div className="text-3xl font-bold text-gray-900 mt-2">
               {products.reduce((acc, p) => acc + (p.stock || 0), 0)}
             </div>
+            <div className="text-xs text-emerald-600 font-medium mt-1">In Stock Products</div>
           </div>
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
-            <div className="text-gray-500 text-xs font-medium uppercase tracking-wider">Vendor Powers</div>
-            <div className="text-sm font-semibold text-emerald-600 mt-2 flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              Full Buy & Sell Access
+            <div className="text-gray-500 text-xs font-medium uppercase tracking-wider">Total Inventory Value</div>
+            <div className="text-3xl font-bold text-emerald-600 mt-2">
+              ₹{products.reduce((acc, p) => acc + ((p.price || 0) * (p.stock || 0)), 0).toLocaleString("en-IN")}
             </div>
+            <div className="text-xs text-gray-400 mt-1">Combined Product Asset Value</div>
+          </div>
+          <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
+            <div className="text-gray-500 text-xs font-medium uppercase tracking-wider">Vendor Status</div>
+            <div className="text-lg font-bold text-emerald-600 mt-2 flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Verified Merchant
+            </div>
+            <div className="text-xs text-gray-400 mt-1">Full Listing & Editing Rights</div>
           </div>
         </div>
 

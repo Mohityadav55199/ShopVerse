@@ -139,26 +139,34 @@ const OrderDetailPage = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-gray-800">Order Details</h1>
-        <Link
-          to="/orders"
-          className="text-blue-600 hover:text-blue-800 flex items-center"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mr-1"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => window.print()}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-semibold rounded-lg shadow-sm transition-colors print:hidden"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          Back to Orders
-        </Link>
+            <span>🖨️</span> Download Invoice
+          </button>
+          <Link
+            to="/orders"
+            className="text-blue-600 hover:text-blue-800 flex items-center text-sm font-medium print:hidden"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back to Orders
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-8">

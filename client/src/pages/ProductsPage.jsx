@@ -4,12 +4,21 @@ import { useAppContext } from "../context/AppContext";
 import Pagination from "../components/Pagination";
 
 const ProductCard = ({ product, handleAddToCart, user }) => {
+  const { toggleWishlist, isInWishlist } = useAppContext();
   // Get main image and any additional images
   const mainImage = product.imageUrl;
   const hasMultipleImages = product.images && product.images.length > 0;
+  const isWishlisted = isInWishlist(product._id);
 
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-lg shadow overflow-hidden hover:shadow-md transition-shadow relative">
+      <button
+        onClick={() => toggleWishlist(product)}
+        title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+        className="absolute top-2 right-2 z-10 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-sm shadow hover:scale-110 transition-transform"
+      >
+        {isWishlisted ? "❤️" : "🤍"}
+      </button>
       <Link to={`/products/${product._id}`} className="block relative">
         <img
           src={mainImage}
