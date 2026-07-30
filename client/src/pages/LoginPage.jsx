@@ -71,7 +71,7 @@ const LoginPage = () => {
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-8 bg-gray-100 text-gray-900">
       {/* Light Card Matching Application Design System */}
       <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-md p-6 md:p-8">
-        
+
         {/* Header Icon & Title */}
         <div className="flex flex-col items-center text-center mb-6">
           <img
@@ -90,18 +90,17 @@ const LoginPage = () => {
         {/* Quick Demo Accounts Selection */}
         <div className="mb-6 p-3.5 bg-gray-50 border border-gray-200 rounded-xl">
           <div className="text-[11px] font-bold tracking-wider text-gray-500 uppercase mb-2 text-center">
-            Quick Demo Accounts
+            Quick Login
           </div>
           <div className="grid grid-cols-3 gap-2">
             {/* Customer Button */}
             <button
               type="button"
               onClick={() => handleSelectDemoAccount("customer")}
-              className={`flex flex-col items-center justify-center py-2 px-2 rounded-lg border transition-all text-xs font-medium ${
-                selectedRole === "customer"
+              className={`flex flex-col items-center justify-center py-2 px-2 rounded-lg border transition-all text-xs font-medium ${selectedRole === "customer"
                   ? "bg-blue-600 border-blue-600 text-white shadow-sm"
                   : "bg-white border-gray-200 text-gray-700 hover:bg-gray-100"
-              }`}
+                }`}
             >
               <svg
                 className="w-4 h-4 mb-1"
@@ -123,11 +122,10 @@ const LoginPage = () => {
             <button
               type="button"
               onClick={() => handleSelectDemoAccount("vendor")}
-              className={`flex flex-col items-center justify-center py-2 px-2 rounded-lg border transition-all text-xs font-medium ${
-                selectedRole === "vendor"
+              className={`flex flex-col items-center justify-center py-2 px-2 rounded-lg border transition-all text-xs font-medium ${selectedRole === "vendor"
                   ? "bg-emerald-600 border-emerald-600 text-white shadow-sm"
                   : "bg-white border-gray-200 text-gray-700 hover:bg-gray-100"
-              }`}
+                }`}
             >
               <svg
                 className="w-4 h-4 mb-1"
@@ -149,11 +147,10 @@ const LoginPage = () => {
             <button
               type="button"
               onClick={() => handleSelectDemoAccount("admin")}
-              className={`flex flex-col items-center justify-center py-2 px-2 rounded-lg border transition-all text-xs font-medium ${
-                selectedRole === "admin"
+              className={`flex flex-col items-center justify-center py-2 px-2 rounded-lg border transition-all text-xs font-medium ${selectedRole === "admin"
                   ? "bg-purple-600 border-purple-600 text-white shadow-sm"
                   : "bg-white border-gray-200 text-gray-700 hover:bg-gray-100"
-              }`}
+                }`}
             >
               <svg
                 className="w-4 h-4 mb-1"
